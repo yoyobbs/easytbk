@@ -23,6 +23,12 @@ class JdUnionGoodsQueryRequest implements RequestInterface
      * @var
      */
     private $isPG;
+    
+    /**
+     * 京喜商品类型，1京喜、2京喜工厂直供、3京喜优选（包含3时可在京东APP购买），入参多个值表示或条件查询
+     * @var
+     */
+    private $jxFlags;
 
     /**
      * skuid集合(一次最多支持查询100个sku)，数组类型开发时记得加[]
@@ -144,6 +150,26 @@ class JdUnionGoodsQueryRequest implements RequestInterface
     private $commissionShareStart;
 
     /**
+     *1：查询内容商品；其他值过滤掉此入参条件。
+     * @var
+     */
+    private $hasContent;
+
+
+    /**
+     * 1：查询有最优惠券商品；其他值过滤掉此入参条件。
+     * @var
+     */
+    private $hasBestCoupon;
+
+
+    /**
+     * 联盟id_应用iD_推广位id
+     * @var
+     */
+    private $pid;
+
+    /**
      * @return mixed
      */
     public function getisPG()
@@ -157,6 +183,22 @@ class JdUnionGoodsQueryRequest implements RequestInterface
     public function setIsPG($isPG): void
     {
         $this->isPG = $isPG;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getjxFlags()
+    {
+        return $this->jxFlags;
+    }
+
+    /**
+     * @param mixed $jxFlags
+     */
+    public function setJxFlags($jxFlags): void
+    {
+        $this->jxFlags = $jxFlags;
     }
 
     /**
@@ -479,6 +521,54 @@ class JdUnionGoodsQueryRequest implements RequestInterface
         $this->commissionShareStart = $commissionShareStart;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getHasContent()
+    {
+        return $this->hasContent;
+    }
+
+    /**
+     * @param mixed $hasContent
+     */
+    public function setHasContent($hasContent)
+    {
+        $this->hasContent = $hasContent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasBestCoupon()
+    {
+        return $this->hasBestCoupon;
+    }
+
+    /**
+     * @param mixed $hasBestCoupon
+     */
+    public function setHasBestCoupon($hasBestCoupon)
+    {
+        $this->hasBestCoupon = $hasBestCoupon;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPid()
+    {
+        return $this->pid;
+    }
+
+    /**
+     * @param mixed $pid
+     */
+    public function setPid($pid)
+    {
+        $this->pid = $pid;
+    }
+
 
     /**
      * @return string
@@ -495,6 +585,7 @@ class JdUnionGoodsQueryRequest implements RequestInterface
     {
         $params = [
             'isPG' => $this->isPG,
+            'jxFlags' => $this->jxFlags,
             'skuIds' => $this->skuIds,
             'sort' => $this->sort,
             'keyword' => $this->keyword,
@@ -514,7 +605,10 @@ class JdUnionGoodsQueryRequest implements RequestInterface
             'shopId' => $this->shopId,
             'owner' => $this->owner,
             'isCoupon' => $this->isCoupon,
-            'commissionShareStart' => $this->commissionShareStart
+            'commissionShareStart' => $this->commissionShareStart,
+            'hasContent' => $this->hasContent,
+            'hasBestCoupon' => $this->hasBestCoupon,
+            'pid' => $this->pid,
         ];
 
         return json_encode([
